@@ -90,6 +90,7 @@ class Finn_oneSpider(scrapy.Spider):
         self.processed_responses += 1
         if self.processed_responses == self.total_requests:
             # Only proceed if there is data to compare
+            # print(finn_uae_list)
             if self.finn_uae_list and self.finn_uae_sub_list:
                 for item in self.generate_items():
                     yield Product(**item)
@@ -185,7 +186,8 @@ class Finn_oneSpider(scrapy.Spider):
         Total_Balance_Outstanding = ''.join(
             parser.xpath("//label[contains(text(), 'Total Balance Outstanding')]//parent::div/text()")
         )
-        
+        from datetime import date
+        scrape_date = date.today()
         data = {
             'passport_no': passport_no if passport_no else '',
             'gender': gender if gender else '',
@@ -207,6 +209,7 @@ class Finn_oneSpider(scrapy.Spider):
             'card_number': card_number if card_number else '',
             'total_amount_overdue': total_amount_overdue if total_amount_overdue else '',
             'Total_Balance_Outstanding': Total_Balance_Outstanding if Total_Balance_Outstanding else '',
+            'scrape_date': scrape_date
         }
         return data
 

@@ -33,3 +33,4 @@ class Product(scrapy.Item):
     card_number = scrapy.Field()
     total_amount_overdue = scrapy.Field()
     Total_Balance_Outstanding = scrapy.Field()
+    scrape_date = scrapy.Field()
