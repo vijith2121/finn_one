@@ -209,7 +209,7 @@ class Finn_oneSpider(scrapy.Spider):
             'card_number': card_number if card_number else '',
             'total_amount_overdue': total_amount_overdue if total_amount_overdue else '',
             'Total_Balance_Outstanding': Total_Balance_Outstanding if Total_Balance_Outstanding else '',
-            'scrape_date': scrape_date
+            'scrape_date': str(scrape_date) if scrape_date else ''
         }
         return data
 
