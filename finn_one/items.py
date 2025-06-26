@@ -34,3 +34,4 @@ class Product(scrapy.Item):
     total_amount_overdue = scrapy.Field()
     Total_Balance_Outstanding = scrapy.Field()
     scrape_date = scrapy.Field()
+    customer_name = scrapy.Field()

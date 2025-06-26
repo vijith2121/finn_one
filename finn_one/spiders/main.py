@@ -73,12 +73,12 @@ class Finn_oneSpider(scrapy.Spider):
         finn_uae_list, finn_uae_sub_list = [], []
         if file_name:
             
-            if '_Contact' in file_name:
+            if '_Contact' in file_name or '_contact' in file_name:
                 finn_uae = parse1(response)
                 if finn_uae:
                 # yield Product(**{'res': finn_uae})
                     self.finn_uae_list.append(finn_uae)
-            elif 'Info' in file_name:
+            elif 'Info' in file_name or 'info' in file_name:
                 finn_uae_sub = self.parse2(response, response.meta)
                 if finn_uae_sub:
                     self.finn_uae_sub_list.append(finn_uae_sub)
@@ -129,6 +129,10 @@ class Finn_oneSpider(scrapy.Spider):
         # print(html_body)
 
         # Sample extraction
+        
+        customer_name = ''.join(
+            parser.xpath('//span[@id="colorCodingSpanForTelecaller"]//parent::div//span//text()')
+        ).strip()
         passport_no = ''.join(
             parser.xpath("//div[contains(text(), 'Passport No.')]/following-sibling::div[1]/text()")
         )
@@ -188,6 +192,7 @@ class Finn_oneSpider(scrapy.Spider):
         )
         from datetime import date
         scrape_date = date.today()
+        # print(scrape_date)
         data = {
             'passport_no': passport_no if passport_no else '',
             'gender': gender if gender else '',
@@ -209,7 +214,8 @@ class Finn_oneSpider(scrapy.Spider):
             'card_number': card_number if card_number else '',
             'total_amount_overdue': total_amount_overdue if total_amount_overdue else '',
             'Total_Balance_Outstanding': Total_Balance_Outstanding if Total_Balance_Outstanding else '',
-            'scrape_date': str(scrape_date) if scrape_date else ''
+            'scrape_date': str(scrape_date),
+            'customer_name': customer_name if customer_name else '',
         }
         return data
 
